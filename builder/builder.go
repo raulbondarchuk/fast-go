@@ -13,15 +13,34 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
+// Example of use
+/*
+func Build() {
+
+	builderConfig := builder.BuildConfig{
+		DefaultMode:      "dev",
+		OutputFilename:   "configfilename.linux",
+		OutputDir:        "./",
+		SourceFile:       "./cmd/main.go",
+		BuildLinux:       true,
+		BuildWindows:     false,
+		PossibleDirs:     []string{"", "configs", "cfg", "config", "internal/config"},
+		ConfigExtensions: []string{"toml", "yaml"},
+	}
+	builderConfig.Run()
+}
+*/
+
 // BuildConfig is the configuration for the build process
 type BuildConfig struct {
-	DefaultMode    string   // dev, prod, local
-	OutputFilename string   // name of the output file
-	OutputDir      string   // path to the output directory
-	SourceFile     string   // path to the source file
-	BuildLinux     bool     // true if is necessary build for Linux
-	BuildWindows   bool     // true if is necessary build for Windows
-	PossibleDirs   []string // possible directories to find the config file
+	DefaultMode      string   // dev, prod, local
+	OutputFilename   string   // name of the output file
+	OutputDir        string   // path to the output directory. (It will create a "builds" directory inside this path)
+	SourceFile       string   // path to the source file
+	BuildLinux       bool     // true if is necessary build for Linux
+	BuildWindows     bool     // true if is necessary build for Windows
+	PossibleDirs     []string // possible directories to find the config file. For example: ["", "configs", "cfg", "config", "internal/config"]
+	ConfigExtensions []string // possible extensions of the config file. For example: ["toml", "yaml"]
 }
 
 func finalization() {
@@ -44,6 +63,9 @@ func (config *BuildConfig) validate() error {
 	}
 	if len(config.PossibleDirs) == 0 {
 		return fmt.Errorf("PossibleDirs is required")
+	}
+	if len(config.ConfigExtensions) == 0 {
+		return fmt.Errorf("ConfigExtensions is required")
 	}
 	return nil
 }
@@ -100,11 +122,11 @@ func (config *BuildConfig) Run() {
 	}
 
 	// Update and copy config file
-	configFile, err := findConfigFile(wd, config.PossibleDirs)
+	configFile, err := findConfigFile(wd, config.PossibleDirs, config.ConfigExtensions)
 	if err != nil {
 		log.Fatalf("Error finding config file: %v", err)
 	}
-	destConfigFilePath := filepath.Join(outputDir, "config.toml")
+	destConfigFilePath := filepath.Join(outputDir, "config"+filepath.Ext(configFile))
 	if err := updateAndCopyConfigFile(configFile, destConfigFilePath, config.DefaultMode); err != nil {
 		log.Fatalf("Error updating and copying config file: %v", err)
 	} else {
@@ -170,17 +192,22 @@ func buildForOS(goos, outputFile, sourceFile, outputDir string) error {
 }
 
 // findConfigFile finds the config file in the possible directories
-func findConfigFile(wd string, possibleDirs []string) (string, error) {
+func findConfigFile(wd string, possibleDirs []string, configExtensions []string) (string, error) {
 	for _, dir := range possibleDirs {
 		files, err := os.ReadDir(filepath.Join(wd, dir))
 		if err != nil {
 			continue
 		}
 		for _, file := range files {
-			if !file.IsDir() && strings.HasSuffix(file.Name(), ".toml") {
-				return filepath.Join(wd, dir, file.Name()), nil
+			if file.IsDir() {
+				continue
+			}
+			for _, ext := range configExtensions {
+				if strings.HasSuffix(file.Name(), ext) {
+					return filepath.Join(wd, dir, file.Name()), nil
+				}
 			}
 		}
 	}
-	return "", fmt.Errorf("no .toml config file found")
+	return "", fmt.Errorf("no config file found with extensions: %v", configExtensions)
 }
