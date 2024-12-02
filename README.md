@@ -1,4 +1,6 @@
 # **Fast-Go Builder**
+[![Go Version](https://img.shields.io/badge/Go-1.19%2B-blue?logo=go&logoColor=white)](https://go.dev/doc/install) [![Status](https://img.shields.io/badge/Status-Active-brightgreen)](#)
+
 
 **Fast-Go Builder** is a simple and efficient Go library designed for quickly building Go projects. It allows you to compile and package your applications with minimal setup, supports multiple environments, and facilitates configuration management for Linux and Windows platforms.
 
@@ -10,6 +12,27 @@
 - [Installation](#installation)
 - [How to Use](#how-to-use)
 - [Output](#output)
+
+---
+
+## **Installation**
+
+To install the library, ensure you have Go **1.19** or higher installed.
+
+1. Initialize your Go module if not already done:
+   ```bash
+   go mod init <your_project_name>
+   ```
+
+2. Add the Fast-Go Builder library to your project:
+   ```bash
+   go get github.com/raulbondarchuk/fast-go/builder
+   ```
+
+3. Import the library in your code:
+   ```go
+   import "github.com/raulbondarchuk/fast-go/builder"
+   ```
 
 ---
 
@@ -69,27 +92,6 @@ func main() {
 	}
 }
 ```
-
----
-
-## **Installation**
-
-To install the library, ensure you have Go **1.19** or higher installed.
-
-1. Initialize your Go module if not already done:
-   ```bash
-   go mod init <your_project_name>
-   ```
-
-2. Add the Fast-Go Builder library to your project:
-   ```bash
-   go get github.com/raulbondarchuk/fast-go/builder
-   ```
-
-3. Import the library in your code:
-   ```go
-   import "github.com/raulbondarchuk/fast-go/builder"
-   ```
 
 ---
 
