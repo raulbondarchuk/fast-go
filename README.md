@@ -1,7 +1,7 @@
 
 # **Fast-Go**
 
-🌐 Select Language / Seleccione el idioma / Выберите язык:
+🌐 Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:
 - [English (Default)](README.md)
 - [Español](README.es.md)
 - [Українська](README.ua.md)
