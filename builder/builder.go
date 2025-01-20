@@ -41,6 +41,7 @@ type BuildConfig struct {
 	BuildWindows     bool     // true if is necessary build for Windows
 	PossibleDirs     []string // possible directories to find the config file. For example: ["", "configs", "cfg", "config", "internal/config"]
 	ConfigExtensions []string // possible extensions of the config file. For example: ["toml", "yaml"]
+	AddAppOnConfig   bool     // true if is necessary add the app section on the config file
 }
 
 func finalization() {
@@ -127,7 +128,7 @@ func (config *BuildConfig) Run() {
 		log.Fatalf("Error finding config file: %v", err)
 	}
 	destConfigFilePath := filepath.Join(outputDir, "config"+filepath.Ext(configFile))
-	if err := updateAndCopyConfigFile(configFile, destConfigFilePath, config.DefaultMode); err != nil {
+	if err := updateAndCopyConfigFile(configFile, destConfigFilePath, config.DefaultMode, config.AddAppOnConfig); err != nil {
 		log.Fatalf("Error updating and copying config file: %v", err)
 	} else {
 		log.Println("Successfully updated and copied config file to:", destConfigFilePath)
@@ -136,7 +137,7 @@ func (config *BuildConfig) Run() {
 }
 
 // updateAndCopyConfigFile updates and copies the config file
-func updateAndCopyConfigFile(src, dst, defaultMode string) error {
+func updateAndCopyConfigFile(src, dst, defaultMode string, addAppOnConfig bool) error {
 	// Read the config file
 	input, err := os.ReadFile(src)
 	if err != nil {
@@ -147,9 +148,11 @@ func updateAndCopyConfigFile(src, dst, defaultMode string) error {
 	content := string(input)
 
 	// Check if [app] section exists, if not, add it
-	appSectionRegex := regexp.MustCompile(`(?m)^\[app\]`)
-	if !appSectionRegex.MatchString(content) {
-		content = "[app]\n" + content
+	if addAppOnConfig {
+		appSectionRegex := regexp.MustCompile(`(?m)^\[app\]`)
+		if !appSectionRegex.MatchString(content) {
+			content = "[app]\n" + content
+		}
 	}
 
 	// Regular expression to find the "mode" parameter in the config file
@@ -157,10 +160,10 @@ func updateAndCopyConfigFile(src, dst, defaultMode string) error {
 	if modeRegex.MatchString(content) {
 		// If the "mode" parameter is found, replace it with DEFAULT_MODE
 		content = modeRegex.ReplaceAllString(content, fmt.Sprintf(`${1}"%s"`, defaultMode))
-	} else {
+	} else if addAppOnConfig {
 		// If the "mode" parameter is not found, add it under [app] section
 		newModeEntry := fmt.Sprintf("mode = \"%s\"\n", defaultMode)
-		content = appSectionRegex.ReplaceAllString(content, fmt.Sprintf("[app]\n%s", newModeEntry))
+		content = "[app]\n" + newModeEntry + content
 	}
 
 	// Get the current date and time
