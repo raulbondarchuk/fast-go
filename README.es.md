@@ -74,6 +74,7 @@ func Build() {
 		BuildWindows:     false,
 		PossibleDirs:     []string{"", "configs", "cfg", "config", "internal/config"},
 		ConfigExtensions: []string{"toml", "yaml"},
+		AddAppOnConfig:   false,
 	}
 	builderConfig.Run()
 }
