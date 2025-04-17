@@ -9,7 +9,7 @@
 ---
 
 # **Fast-Go Builder**
-[![Версия Go](https://img.shields.io/badge/Go-1.19%2B-blue?logo=go&logoColor=white)](https://go.dev/doc/install) [![Статус](https://img.shields.io/badge/Статус-Активный-brightgreen)](#)
+[![Версия Go](https://img.shields.io/badge/Go-1.23%2B-blue?logo=go&logoColor=white)](https://go.dev/doc/install) [![Статус](https://img.shields.io/badge/Статус-Активный-brightgreen)](#)
 
 **Fast-Go Builder** — это простая и эффективная библиотека для языка Go, разработанная для быстрого создания проектов. Она позволяет компилировать и упаковывать приложения с минимальными настройками, поддерживает несколько сред и упрощает управление конфигурациями для платформ Linux и Windows.
 
