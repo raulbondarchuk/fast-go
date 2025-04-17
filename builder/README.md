@@ -8,11 +8,7 @@
 
 **Fast-Go Builder** is a simple and efficient Go library designed for quickly building Go projects. It allows you to compile and package your applications with minimal setup, supports multiple environments, and facilitates configuration management for Linux and Windows platforms.
 
----
-
-# **🌐Language**
-
-🌐 Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:
+🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
 - [English (Default)](README.md)
 - [Español](README.es.md)
 - [Українська](README.ua.md)
