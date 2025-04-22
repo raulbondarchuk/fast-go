@@ -6,14 +6,14 @@
 **Fast-Go Builder** es una biblioteca simple y eficiente de Go diseñada para compilar proyectos de manera rápida. Permite compilar y empaquetar aplicaciones con una configuración mínima, admite múltiples entornos y facilita la gestión de configuraciones para plataformas Linux y Windows.
 
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
-- [English (Default)](README.md)
-- [Español](README.es.md)
+- [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
+- Español <---
 - [Українська](README.ua.md)
 - [Русский](README.ru.md)
 
 ---
 
-## **Tabla de Contenidos**
+## Acceso rápido
 - [Características](#características)
 - [Ejemplo de Uso](#ejemplo-de-uso)
 - [Instalación](#instalación)
