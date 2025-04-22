@@ -53,7 +53,7 @@ type ImageConfig struct {
 
 ```go
 cfg := &converter.ImageConfig{
-    FileName:              "avatar.png",
+    FileName:              "avatar",
     File:                  fileReader,
     Width:                 800,
     Height:                600,
@@ -95,7 +95,7 @@ type LogoConfig struct {
 
 ```go
 logoCfg := &converter.LogoConfig{
-    FileName:     "logo.png",
+    FileName:     "logo",
     File:         logoReader,
     DirToStorage: "./logos",
     MaxWidth:     400,
@@ -137,7 +137,7 @@ type VideoConfig struct {
 
 ```go
 vidCfg := &converter.VideoConfig{
-    FileName:        "input.mp4",
+    FileName:        "input",
     File:            videoReader,
     Width:           1280,
     Height:          720,
@@ -177,7 +177,7 @@ type AudioConfig struct {
 
 ```go
 audioCfg := &converter.AudioConfig{
-    FileName:        "track.mp3",
+    FileName:        "track",
     File:            audioReader,
     Bitrate:         192,
     FormatToConvert: "opus",

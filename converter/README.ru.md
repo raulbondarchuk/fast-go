@@ -53,7 +53,7 @@ type ImageConfig struct {
 
 ```go
 cfg := &converter.ImageConfig{
-    FileName:              "avatar.png",
+    FileName:              "avatar",
     File:                  fileReader,
     Width:                 800,
     Height:                600,
@@ -137,7 +137,7 @@ type VideoConfig struct {
 
 ```go
 vidCfg := &converter.VideoConfig{
-    FileName:        "input.mp4",
+    FileName:        "input",
     File:            videoReader,
     Width:           1280,
     Height:          720,
@@ -163,7 +163,7 @@ type AudioConfig struct {
     FileName        string    // имя входного файла
     File            io.Reader // ридер с содержимым аудио
     Bitrate         int       // целевой битрейт (64-320 kbps)
-    FormatToConvert string    // формат конвертации ("mp3", "m4a", "opus", "wav")
+    FormatToConvert string    // формат конвертации ("mp3", "m4a")
     DirToStorage    string    // директория для сохранения
 }
 ```
@@ -177,7 +177,7 @@ type AudioConfig struct {
 
 ```go
 audioCfg := &converter.AudioConfig{
-    FileName:        "track.mp3",
+    FileName:        "track",
     File:            audioReader,
     Bitrate:         192,
     FormatToConvert: "opus",

@@ -53,7 +53,7 @@ type ImageConfig struct {
 
 ```go
 cfg := &converter.ImageConfig{
-    FileName:              "avatar.png",
+    FileName:              "avatar",
     File:                  fileReader,
     Width:                 800,
     Height:                600,
@@ -95,7 +95,7 @@ type LogoConfig struct {
 
 ```go
 logoCfg := &converter.LogoConfig{
-    FileName:     "logo.png",
+    FileName:     "logo",
     File:         logoReader,
     DirToStorage: "./logos",
     MaxWidth:     400,
@@ -137,7 +137,7 @@ type VideoConfig struct {
 
 ```go
 vidCfg := &converter.VideoConfig{
-    FileName:        "input.mp4",
+    FileName:        "video",
     File:            videoReader,
     Width:           1280,
     Height:          720,
@@ -163,7 +163,7 @@ type AudioConfig struct {
     FileName        string    // ім'я вхідного файлу
     File            io.Reader // рідер з вмістом аудіо
     Bitrate         int       // цільовий бітрейт (64-320 kbps)
-    FormatToConvert string    // формат конвертації ("mp3", "m4a", "opus", "wav")
+    FormatToConvert string    // формат конвертації ("mp3", "m4a")
     DirToStorage    string    // директорія для збереження
 }
 ```
@@ -177,10 +177,10 @@ type AudioConfig struct {
 
 ```go
 audioCfg := &converter.AudioConfig{
-    FileName:        "track.mp3",
+    FileName:        "track",
     File:            audioReader,
     Bitrate:         192,
-    FormatToConvert: "opus",
+    FormatToConvert: "m4a",
     DirToStorage:    "./audio",
 }
 audioPath, err := audioCfg.Convert()
