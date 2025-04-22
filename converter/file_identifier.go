@@ -24,6 +24,9 @@ const (
 	// List of supported video formats
 	MP4  = "mp4"
 	WEBM = "webm"
+
+	// List of supported JSON formats
+	JSON = "json"
 )
 
 var supportedFormatsImage = []string{PNG, JPEG, JPG, WEBP, JFIF}
@@ -38,7 +41,7 @@ const (
 	Image                   // 1
 	Video                   // 2
 	Audio                   // 3
-	JSON                    // 4
+	Json                    // 4
 )
 
 // DetermineFileType determines the type of a file based on its extension
@@ -51,8 +54,8 @@ func DetermineFileType(fileName string) FileType {
 		return Video
 	} else if contains(supportedFormatsAudio, ext) {
 		return Audio
-	} else if ext == "json" {
-		return JSON
+	} else if ext == JSON {
+		return Json
 	} else {
 		return Unknown
 	}
