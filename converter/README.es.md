@@ -13,6 +13,16 @@
 
 ---
 
+
+## Acceso rápido
+- [Installation](#Instalación)
+- [Image](#Imagen)
+- [Logo](#Logotipo)
+- [Video](#Video)
+- [Audio](#Audio)
+
+---
+
 ## Instalación
 
 ```bash
@@ -26,7 +36,7 @@ go get github.com/raulbondarchuk/fast-go/converter
 
 ## Estructuras y métodos
 
-### ImageConfig
+### Imagen
 
 Configuración para convertir imágenes:
 
@@ -71,7 +81,7 @@ fmt.Println("Guardado en", newPath)
 
 ---
 
-### LogoConfig
+### Logotipo
 
 Configuración para procesar logotipos (siempre convierte a WebP):
 
@@ -112,7 +122,7 @@ fmt.Println("Logotipo guardado en:", logoPath)
 
 ---
 
-### VideoConfig
+### Video
 
 Configuración para convertir vídeo (MP4 ↔ WebM):
 
@@ -154,7 +164,7 @@ fmt.Println("Vídeo convertido en:", outPath)
 
 ---
 
-### AudioConfig
+### Audio
 
 Configuración para convertir audio:
 
