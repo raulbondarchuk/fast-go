@@ -9,6 +9,7 @@
 - [Українська](README.ua.md)
 - [Русский](README.ru.md)
 
+---
 
 `converter` — a package for converting images and video with support for MP4 and WebM formats, as well as image conversion (PNG, JPEG, WebP, JFIF).
 
