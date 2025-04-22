@@ -8,7 +8,7 @@
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
 - [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
 - [Español](README.es.md)
-- [Українська](README.ua.md)
+- Українська <---
 - [Русский](README.ru.md)
 
 ---

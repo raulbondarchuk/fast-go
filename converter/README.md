@@ -6,7 +6,7 @@
 **Fast-Go Converter** — a package for converting images, videos, and audio with support for various formats.
 
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
-- [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
+- English (Default) <---
 - [Español](README.es.md)
 - [Українська](README.ua.md)
 - [Русский](README.ru.md)

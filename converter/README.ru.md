@@ -9,7 +9,7 @@
 - [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
 - [Español](README.es.md)
 - [Українська](README.ua.md)
-- [Русский](README.ru.md)
+- Русский <---
 
 ---
 
