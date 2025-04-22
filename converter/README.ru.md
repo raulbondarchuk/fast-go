@@ -3,6 +3,8 @@
 
 [**Return to the main menu**](https://github.com/raulbondarchuk/fast-go/tree/main)
 
+**Fast-Go Converter** — пакет для конвертации изображений и видео с поддержкой форматов MP4 и WebM, а также конвертации изображений (PNG, JPEG, WebP, JFIF).
+
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
 - [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
 - [Español](README.es.md)
@@ -10,8 +12,6 @@
 - [Русский](README.ru.md)
 
 ---
-
-`converter` — пакет для конвертации изображений и видео с поддержкой форматов MP4 и WebM, а также конвертации изображений (PNG, JPEG, WebP, JFIF).
 
 ## Установка
 

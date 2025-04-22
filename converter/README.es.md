@@ -3,6 +3,8 @@
 
 [**Return to the main menu**](https://github.com/raulbondarchuk/fast-go/tree/main)
 
+**Fast-Go Converter** — paquete para convertir imágenes y vídeo con soporte para formatos MP4 y WebM, así como conversión de imágenes (PNG, JPEG, WebP, JFIF).
+
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
 - [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
 - [Español](README.es.md)
@@ -10,8 +12,6 @@
 - [Русский](README.ru.md)
 
 ---
-
-`converter` — paquete para convertir imágenes y vídeo con soporte para formatos MP4 y WebM, así como conversión de imágenes (PNG, JPEG, WebP, JFIF).
 
 ## Instalación
 
