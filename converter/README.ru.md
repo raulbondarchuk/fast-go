@@ -25,7 +25,7 @@ type ImageConfig struct {
     File                  io.Reader // ридер с содержимым изображения
     Width                 int       // целевая ширина
     Height                int       // целевая высота
-    FormatToConvert       string    // желаемый формат ("png", "jpg", "jpeg", "webp", "jfif")
+    FormatToConvert       string    // желаемый формат ("png", "jpg", "jpeg", "webp")
     StretchThreshold      float64   // порог растяжения (в %)
     Quality               int       // качество 1–5
     TransparentBackground bool      // прозрачный фон вместо размытого
