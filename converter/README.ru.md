@@ -1,11 +1,22 @@
-# converter
+# Fast-Go Converter
+[![Go Version](https://img.shields.io/badge/Go-1.23%2B-blue?logo=go&logoColor=white)](https://go.dev/doc/install) [![Status](https://img.shields.io/badge/Status-Active-brightgreen)](#)
+
+[**Return to the main menu**](https://github.com/raulbondarchuk/fast-go/tree/main)
+
+🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
+- [English (Default)](README.md)
+- [Español](README.es.md)
+- [Українська](README.ua.md)
+- [Русский](README.ru.md)
+
+---
 
 `converter` — пакет для конвертации изображений и видео с поддержкой форматов MP4 и WebM, а также конвертации изображений (PNG, JPEG, WebP, JFIF).
 
 ## Установка
 
 ```bash
-go get github.com/yourusername/converter
+go get github.com/raulbondarchuk/fast-go/converter
 ```
 
 > Пакет использует:
@@ -143,7 +154,7 @@ fmt.Println("Video converted:", outPath)
 
 ## Зависимости
 
-- Go ≥ 1.18
+- Go ≥ 1.21
 - FFmpeg (должен быть установлен и доступен в PATH).
 
 ```bash
@@ -153,7 +164,4 @@ go get github.com/disintegration/imaging
 go get github.com/u2takey/ffmpeg-go
 ```
 
-## Лицензия
-
-MIT © Ваше имя
 
