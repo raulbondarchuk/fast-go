@@ -15,10 +15,11 @@
 
 ## Quick Access
 - [Installation](#installation)
-- [Image](#Image)
-- [Logo](#Logotype)
-- [Video](#Video)
-- [Audio](#Audio)
+- [Image](#image)
+- [Logo](#logotype)
+- [Video](#video)
+- [Audio](#audio)
+- [Determine Type of File](#determine-type-of-file)
 
 ---
 
@@ -197,6 +198,36 @@ if err != nil {
     log.Fatal(err)
 }
 fmt.Println("Audio converted to:", audioPath)
+```
+
+---
+
+### Determine Type of File
+
+The `DetermineFileType` function allows you to determine the type of a file based on its extension. It returns a `FileType` which can be one of the following:
+
+- `Image` for image files
+- `Video` for video files
+- `Audio` for audio files
+- `Json` for JSON files
+- `Unknown` for unsupported or unknown file types
+
+**Example**:
+
+```go
+fileType := converter.DetermineFileType("example.mp3")
+switch fileType {
+case converter.Image:
+    fmt.Println("This is an image file.")
+case converter.Video:
+    fmt.Println("This is a video file.")
+case converter.Audio:
+    fmt.Println("This is an audio file.")
+case converter.Json:
+    fmt.Println("This is a JSON file.")
+default:
+    fmt.Println("Unknown file type.")
+}
 ```
 
 ## Dependencies

@@ -13,13 +13,13 @@
 
 ---
 
-
 ## Acceso rápido
 - [Installation](#Instalación)
 - [Image](#Imagen)
 - [Logo](#Logotipo)
 - [Video](#Video)
 - [Audio](#Audio)
+- [File Type Detection](#Detección-de-Tipo-de-Archivo)
 
 ---
 
@@ -210,6 +210,34 @@ fmt.Println("Audio convertido en:", audioPath)
 go get github.com/disintegration/imaging
 # Instalar ffmpeg-go
 go get github.com/u2takey/ffmpeg-go
+```
+
+### Detección de Tipo de Archivo
+
+La función `DetermineFileType` te permite determinar el tipo de un archivo basado en su extensión. Devuelve un `FileType` que puede ser uno de los siguientes:
+
+- `Image` para archivos de imagen
+- `Video` para archivos de vídeo
+- `Audio` para archivos de audio
+- `Json` para archivos JSON
+- `Unknown` para tipos de archivo no soportados o desconocidos
+
+**Ejemplo**:
+
+```go
+fileType := converter.DetermineFileType("example.mp3")
+switch fileType {
+case converter.Image:
+    fmt.Println("This is an image file.")
+case converter.Video:
+    fmt.Println("This is a video file.")
+case converter.Audio:
+    fmt.Println("This is an audio file.")
+case converter.Json:
+    fmt.Println("This is a JSON file.")
+default:
+    fmt.Println("Unknown file type.")
+}
 ```
 
 

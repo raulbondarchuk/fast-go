@@ -13,12 +13,13 @@
 
 ---
 
-## Быстрый доступ
-- [Installation](#Установка)
-- [Image](#Фото)
-- [Logo](#Логотип)
-- [Video](#Видео)
-- [Audio](#Аудио)
+## Быстрый Доступ
+- [Установка](#установка)
+- [Фото](#фото)
+- [Логотип](#логотип)
+- [Видео](#видео)
+- [Аудио](#аудио)
+- [Определение Типа Файла](#определение-типа-файла)
 
 ---
 
@@ -37,28 +38,28 @@ go get github.com/raulbondarchuk/fast-go/converter
 
 ### Фото
 
-Конфигурация для конвертации изображений:
+Configuration for converting images:
 
 ```go
 type ImageConfig struct {
-    FileName              string    // имя входного файла
-    File                  io.Reader // ридер с содержимым изображения
-    Width                 int       // целевая ширина
-    Height                int       // целевая высота
-    FormatToConvert       string    // желаемый формат ("png", "jpg", "jpeg", "webp", "jfif")
-    StretchThreshold      float64   // порог растяжения (в %)
-    Quality               int       // качество 1–5
-    TransparentBackground bool      // прозрачный фон вместо размытого
-    DirToStorage          string    // директория для сохранения
+    FileName              string    // name of the input file
+    File                  io.Reader // reader with the image content
+    Width                 int       // target width
+    Height                int       // target height
+    FormatToConvert       string    // conversion format ("png", "jpg", "jpeg", "webp", "jfif")
+    StretchThreshold      float64   // stretch threshold (in %)
+    Quality               int       // quality level, 1–5
+    TransparentBackground bool      // transparent background instead of blurred
+    DirToStorage          string    // directory to save the output
 }
 ```
 
-**Методы**:
+**Methods**:
 
-- `Convert() (string, error)` — выполняет валидацию, сохраняет временный файл, обрабатывает изображение и возвращает путь к итоговому файлу.
-- `Delete(...string) error` — удаляет указанный файл или исходный по умолчанию.
+- `Convert() (string, error)` — validates settings, saves a temporary file, processes the image, and returns the path to the final file.
+- `Delete(...string) error` — deletes the specified file or the original by default.
 
-**Пример использования**:
+**Usage Example**:
 
 ```go
 cfg := &converter.ImageConfig{
@@ -75,36 +76,34 @@ newPath, err := cfg.Convert()
 if err != nil {
     log.Fatal(err)
 }
-fmt.Println("Сохранено в", newPath)
+fmt.Println("Saved to", newPath)
 ```
-
----
 
 ### Логотип
 
-Конфигурация для обработки логотипов (всегда конвертирует в WebP):
+Configuration for processing logos (always converts to WebP):
 
 ```go
 type LogoConfig struct {
-    FileName     string    // имя входного файла
-    File         io.Reader // ридер с содержимым логотипа
-    DirToStorage string    // директория для сохранения
-    MaxWidth     int       // макс. ширина
-    MaxHeight    int       // макс. высота
-    MinWidth     int       // мин. ширина
-    MinHeight    int       // мин. высота
+    FileName     string    // name of the logo file
+    File         io.Reader // reader with the logo content
+    DirToStorage string    // directory to save the output
+    MaxWidth     int       // maximum width
+    MaxHeight    int       // maximum height
+    MinWidth     int       // minimum width
+    MinHeight    int       // minimum height
 }
 ```
 
-**Методы**:
+**Methods**:
 
-- `Convert() (string, error)` — ресайз, контраст/яркость, сохраняет в WebP.
+- `Convert() (string, error)` — resizes, adjusts contrast and brightness, and saves in WebP format.
 
-**Пример**:
+**Example**:
 
 ```go
 logoCfg := &converter.LogoConfig{
-    FileName:     "logo.png",
+    FileName:     "logo",
     File:         logoReader,
     DirToStorage: "./logos",
     MaxWidth:     400,
@@ -116,33 +115,31 @@ logoPath, err := logoCfg.Convert()
 if err != nil {
     log.Fatal(err)
 }
-fmt.Println("Логотип сохранен в:", logoPath)
+fmt.Println("Logo saved to:", logoPath)
 ```
-
----
 
 ### Видео
 
-Конфигурация для конвертации видео (MP4 ↔ WebM):
+Configuration for converting video (MP4 ↔ WebM):
 
 ```go
 type VideoConfig struct {
-    FileName        string    // имя входного файла (.mp4 или .webm)
-    File            io.Reader // ридер с содержимым видео
-    Width           int       // целевая ширина кадра
-    Height          int       // целевая высота кадра
-    FormatToConvert string    // целевой формат: "mp4" или "webm"
-    Quality         int       // уровень качества 1–5 (CRF + preset)
-    DirToStorage    string    // директория для сохранения
+    FileName        string    // name of the input file (.mp4 or .webm)
+    File            io.Reader // reader with the video content
+    Width           int       // target frame width
+    Height          int       // target frame height
+    FormatToConvert string    // output format: "mp4" or "webm"
+    Quality         int       // quality level, 1–5 (CRF + preset)
+    DirToStorage    string    // directory to save the output
 }
 ```
 
-**Методы**:
+**Methods**:
 
-- `Convert() (string, error)` — создаёт временный файл, вызывает ffmpeg-go для перекодирования и возвращает итоговый путь.
-- `Delete(...string) error` — удаляет итоговый или исходный файл.
+- `Convert() (string, error)` — creates a temporary file, calls ffmpeg-go for re-encoding, and returns the final path.
+- `Delete(...string) error` — deletes the final or original file.
 
-**Пример**:
+**Example**:
 
 ```go
 vidCfg := &converter.VideoConfig{
@@ -158,31 +155,29 @@ outPath, err := vidCfg.Convert()
 if err != nil {
     log.Fatal(err)
 }
-fmt.Println("Видео конвертировано в:", outPath)
+fmt.Println("Video converted to:", outPath)
 ```
-
----
 
 ### Аудио
 
-Конфигурация для конвертации аудио:
+Configuration for converting audio:
 
 ```go
 type AudioConfig struct {
-    FileName        string    // имя входного файла
-    File            io.Reader // ридер с содержимым аудио
-    Bitrate         int       // целевой битрейт (64-320 kbps)
-    FormatToConvert string    // формат конвертации ("mp3", "m4a")
-    DirToStorage    string    // директория для сохранения
+    FileName        string    // name of the input file
+    File            io.Reader // reader with the audio content
+    Bitrate         int       // target bitrate (64-320 kbps)
+    FormatToConvert string    // conversion format ("mp3", "m4a", "opus", "wav")
+    DirToStorage    string    // directory to save the output
 }
 ```
 
-**Методы**:
+**Methods**:
 
-- `Convert() (string, error)` — выполняет валидацию, обрабатывает аудиофайл с помощью ffmpeg и возвращает путь к итоговому файлу.
-- `Delete(...string) error` — удаляет указанный файл или исходный по умолчанию.
+- `Convert() (string, error)` — validates settings, processes the audio file using ffmpeg, and returns the path to the final file.
+- `Delete(...string) error` — deletes the specified file or the original by default.
 
-**Пример**:
+**Example**:
 
 ```go
 audioCfg := &converter.AudioConfig{
@@ -196,19 +191,46 @@ audioPath, err := audioCfg.Convert()
 if err != nil {
     log.Fatal(err)
 }
-fmt.Println("Аудио конвертировано в:", audioPath)
+fmt.Println("Audio converted to:", audioPath)
+```
+
+### Определение Типа Файла
+
+Функция `DetermineFileType` позволяет определить тип файла на основе его расширения. Она возвращает `FileType`, который может быть одним из следующих:
+
+- `Image` для изображений
+- `Video` для видео
+- `Audio` для аудио
+- `Json` для JSON файлов
+- `Unknown` для неподдерживаемых или неизвестных типов файлов
+
+**Пример**:
+
+```go
+fileType := converter.DetermineFileType("example.mp3")
+switch fileType {
+case converter.Image:
+    fmt.Println("Это файл изображения.")
+case converter.Video:
+    fmt.Println("Это видеофайл.")
+case converter.Audio:
+    fmt.Println("Это аудиофайл.")
+case converter.Json:
+    fmt.Println("Это JSON файл.")
+default:
+    fmt.Println("Неизвестный тип файла.")
+}
 ```
 
 ## Зависимости
 
 - Go ≥ 1.21
-- FFmpeg (должен быть установлен и доступен в PATH).
+- FFmpeg (must be installed and available in PATH).
 
 ```bash
-# Установить imaging
+# Install imaging
 go get github.com/disintegration/imaging
-# Установить ffmpeg-go
+# Install ffmpeg-go
 go get github.com/u2takey/ffmpeg-go
 ```
-
 
