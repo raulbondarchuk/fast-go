@@ -44,3 +44,20 @@ func (c *VideoConfig) Convert() (string, error) {
 func (c *VideoConfig) Delete(reqFilePath ...string) error {
 	return c.deleteVideo(reqFilePath...)
 }
+
+// Convert() is a public method to convert audio using the AudioConfig settings
+// This method is a public interface for converting audio using the configuration
+// specified in the AudioConfig struct. It calls the private method processAudio
+// which handles the actual conversion process.
+func (c *AudioConfig) Convert() (string, error) {
+	return c.processAudio()
+}
+
+// Delete() is a public method to delete audio from the directory
+// This method provides a public interface to delete an audio file from the
+// specified directory. It accepts an optional file path parameter. If no
+// path is provided, it defaults to using the FileName and DirToStorage
+// from the AudioConfig struct.
+func (c *AudioConfig) Delete(reqFilePath ...string) error {
+	return c.deleteAudio(reqFilePath...)
+}

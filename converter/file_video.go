@@ -10,6 +10,13 @@ import (
 	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
 
+const (
+	MP4  = "mp4"
+	WEBM = "webm"
+)
+
+var supportedFormatsVideo = []string{MP4, WEBM}
+
 type VideoConfig struct {
 	FileName              string
 	File                  io.Reader
@@ -22,7 +29,12 @@ type VideoConfig struct {
 }
 
 func (c *VideoConfig) isFormatSupported() bool {
-	return c.FormatToConvert == "mp4" || c.FormatToConvert == "webm"
+	for _, format := range supportedFormatsVideo {
+		if format == c.FormatToConvert {
+			return true
+		}
+	}
+	return false
 }
 
 func (c *VideoConfig) validateValues() error {

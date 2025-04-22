@@ -3,7 +3,7 @@
 
 [**Return to the main menu**](https://github.com/raulbondarchuk/fast-go/tree/main)
 
-**Fast-Go Converter** — пакет для конвертації зображень та відео з підтримкою форматів MP4 і WebM, а також конвертації зображень (PNG, JPEG, WebP, JFIF).
+**Fast-Go Converter** — пакет для конвертації зображень, відео та аудіо з підтримкою різних форматів.
 
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
 - [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
@@ -36,7 +36,7 @@ type ImageConfig struct {
     File                  io.Reader // рідер з вмістом зображення
     Width                 int       // бажана ширина
     Height                int       // бажана висота
-    FormatToConvert       string    // формат конвертації ("png", "jpg", "jpeg", "webp")
+    FormatToConvert       string    // формат конвертації ("png", "jpg", "jpeg", "webp", "jfif")
     StretchThreshold      float64   // поріг розтягування (у %)
     Quality               int       // якість 1–5
     TransparentBackground bool      // прозорий фон замість розмитого
@@ -150,6 +150,44 @@ if err != nil {
     log.Fatal(err)
 }
 fmt.Println("Відео конвертовано в:", outPath)
+```
+
+---
+
+### AudioConfig
+
+Конфігурація для конвертації аудіо:
+
+```go
+type AudioConfig struct {
+    FileName        string    // ім'я вхідного файлу
+    File            io.Reader // рідер з вмістом аудіо
+    Bitrate         int       // цільовий бітрейт (64-320 kbps)
+    FormatToConvert string    // формат конвертації ("mp3", "m4a", "opus", "wav")
+    DirToStorage    string    // директорія для збереження
+}
+```
+
+**Методи**:
+
+- `Convert() (string, error)` — валідує налаштування, оброблює аудіофайл за допомогою ffmpeg та повертає шлях до кінцевого файлу.
+- `Delete(...string) error` — видаляє зазначений файл або початковий за замовчуванням.
+
+**Приклад**:
+
+```go
+audioCfg := &converter.AudioConfig{
+    FileName:        "track.mp3",
+    File:            audioReader,
+    Bitrate:         192,
+    FormatToConvert: "opus",
+    DirToStorage:    "./audio",
+}
+audioPath, err := audioCfg.Convert()
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println("Аудіо конвертовано в:", audioPath)
 ```
 
 ## Залежності

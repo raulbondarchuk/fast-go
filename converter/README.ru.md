@@ -3,7 +3,7 @@
 
 [**Return to the main menu**](https://github.com/raulbondarchuk/fast-go/tree/main)
 
-**Fast-Go Converter** — пакет для конвертации изображений и видео с поддержкой форматов MP4 и WebM, а также конвертации изображений (PNG, JPEG, WebP, JFIF).
+**Fast-Go Converter** — пакет для конвертации изображений, видео и аудио с поддержкой различных форматов.
 
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
 - [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
@@ -36,7 +36,7 @@ type ImageConfig struct {
     File                  io.Reader // ридер с содержимым изображения
     Width                 int       // целевая ширина
     Height                int       // целевая высота
-    FormatToConvert       string    // желаемый формат ("png", "jpg", "jpeg", "webp")
+    FormatToConvert       string    // желаемый формат ("png", "jpg", "jpeg", "webp", "jfif")
     StretchThreshold      float64   // порог растяжения (в %)
     Quality               int       // качество 1–5
     TransparentBackground bool      // прозрачный фон вместо размытого
@@ -53,20 +53,20 @@ type ImageConfig struct {
 
 ```go
 cfg := &converter.ImageConfig{
-    FileName:        "avatar.png",
-    File:            fileReader,
-    Width:           800,
-    Height:          600,
-    FormatToConvert: "webp",
-    Quality:         4,
+    FileName:              "avatar.png",
+    File:                  fileReader,
+    Width:                 800,
+    Height:                600,
+    FormatToConvert:       "webp",
+    Quality:               4,
     TransparentBackground: false,
-    DirToStorage:    "./out",
+    DirToStorage:          "./out",
 }
 newPath, err := cfg.Convert()
 if err != nil {
     log.Fatal(err)
 }
-fmt.Println("Saved to", newPath)
+fmt.Println("Сохранено в", newPath)
 ```
 
 ---
@@ -107,7 +107,7 @@ logoPath, err := logoCfg.Convert()
 if err != nil {
     log.Fatal(err)
 }
-fmt.Println("Logo saved:", logoPath)
+fmt.Println("Логотип сохранен в:", logoPath)
 ```
 
 ---
@@ -149,7 +149,45 @@ outPath, err := vidCfg.Convert()
 if err != nil {
     log.Fatal(err)
 }
-fmt.Println("Video converted:", outPath)
+fmt.Println("Видео конвертировано в:", outPath)
+```
+
+---
+
+### AudioConfig
+
+Конфигурация для конвертации аудио:
+
+```go
+type AudioConfig struct {
+    FileName        string    // имя входного файла
+    File            io.Reader // ридер с содержимым аудио
+    Bitrate         int       // целевой битрейт (64-320 kbps)
+    FormatToConvert string    // формат конвертации ("mp3", "m4a", "opus", "wav")
+    DirToStorage    string    // директория для сохранения
+}
+```
+
+**Методы**:
+
+- `Convert() (string, error)` — выполняет валидацию, обрабатывает аудиофайл с помощью ffmpeg и возвращает путь к итоговому файлу.
+- `Delete(...string) error` — удаляет указанный файл или исходный по умолчанию.
+
+**Пример**:
+
+```go
+audioCfg := &converter.AudioConfig{
+    FileName:        "track.mp3",
+    File:            audioReader,
+    Bitrate:         192,
+    FormatToConvert: "opus",
+    DirToStorage:    "./audio",
+}
+audioPath, err := audioCfg.Convert()
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println("Аудио конвертировано в:", audioPath)
 ```
 
 ## Зависимости

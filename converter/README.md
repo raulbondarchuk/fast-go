@@ -3,7 +3,7 @@
 
 [**Return to the main menu**](https://github.com/raulbondarchuk/fast-go/tree/main)
 
-**Fast-Go Converter** — a package for converting images and video with support for MP4 and WebM formats, as well as image conversion (PNG, JPEG, WebP, JFIF).
+**Fast-Go Converter** — a package for converting images, videos, and audio with support for various formats.
 
 🌐 **Select Language / Seleccione el idioma / Виберіть мову / Выберите язык:**
 - [English (Default)](https://github.com/raulbondarchuk/fast-go/tree/main/converter)
@@ -150,6 +150,44 @@ if err != nil {
     log.Fatal(err)
 }
 fmt.Println("Video converted to:", outPath)
+```
+
+---
+
+### AudioConfig
+
+Configuration for converting audio:
+
+```go
+type AudioConfig struct {
+    FileName        string    // name of the input file
+    File            io.Reader // reader with the audio content
+    Bitrate         int       // target bitrate (64-320 kbps)
+    FormatToConvert string    // conversion format ("mp3", "m4a", "opus", "wav")
+    DirToStorage    string    // directory to save the output
+}
+```
+
+**Methods**:
+
+- `Convert() (string, error)` — validates settings, processes the audio file using ffmpeg, and returns the path to the final file.
+- `Delete(...string) error` — deletes the specified file or the original by default.
+
+**Example**:
+
+```go
+audioCfg := &converter.AudioConfig{
+    FileName:        "track.mp3",
+    File:            audioReader,
+    Bitrate:         192,
+    FormatToConvert: "opus",
+    DirToStorage:    "./audio",
+}
+audioPath, err := audioCfg.Convert()
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println("Audio converted to:", audioPath)
 ```
 
 ## Dependencies
