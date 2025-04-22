@@ -28,7 +28,7 @@ func (c *LogoConfig) Convert() (string, error) {
 	return c.processLogo()
 }
 
-// ConvertVideo is a public method to convert video using the VideoConfig settings
+// Convert() is a public method to convert video using the VideoConfig settings
 // This method is a public interface for converting videos using the configuration
 // specified in the VideoConfig struct. It calls the private method processVideo
 // which handles the actual conversion process.
@@ -36,7 +36,7 @@ func (c *VideoConfig) Convert() (string, error) {
 	return c.processVideo()
 }
 
-// DeleteVideo is a public method to delete video from the directory
+// Delete() is a public method to delete video from the directory
 // This method provides a public interface to delete a video file from the
 // specified directory. It accepts an optional file path parameter. If no
 // path is provided, it defaults to using the FileName and DirToStorage
