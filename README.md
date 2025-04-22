@@ -4,6 +4,6 @@
 
 
 - 📦 [**Fast-Go Builder**](./builder) – for multi-platform (Linux/Windows) build automation.
-- 🖼️ [**Fast-Go Converter**](./converter) – for image processing and format conversion.
+- 🖼️ [**Fast-Go Converter**](./converter) – for image/multimedia processing and format conversion.
 ---
 
