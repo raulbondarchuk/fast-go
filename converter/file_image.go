@@ -13,19 +13,6 @@ import (
 	"github.com/disintegration/imaging"
 )
 
-const (
-	PNG  = "png"
-	JPEG = "jpg"
-	JPG  = "jpeg"
-	WEBP = "webp"
-	JFIF = "jfif"
-	// AVIF = "avif"
-	// HEIC = "heic"
-)
-
-// List of supported image formats
-var supportedFormats = []string{PNG, JPEG, JPG, WEBP, JFIF}
-
 // ImageConfig holds configuration for image processing
 type ImageConfig struct {
 	FileName              string    // Name of the file
@@ -41,7 +28,7 @@ type ImageConfig struct {
 
 // Checks if the desired format is supported
 func (c *ImageConfig) isFormatSupported() bool {
-	for _, format := range supportedFormats {
+	for _, format := range supportedFormatsImage {
 		if format == c.FormatToConvert {
 			return true
 		}

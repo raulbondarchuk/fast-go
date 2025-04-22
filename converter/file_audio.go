@@ -10,15 +10,6 @@ import (
 	"strings"
 )
 
-const (
-	MP3  = "mp3"
-	M4A  = "m4a"
-	OPUS = "opus"
-	WAV  = "wav"
-)
-
-var supportedFormatsAudio = []string{MP3, M4A, OPUS, WAV, MP4}
-
 type AudioConfig struct {
 	FileName        string
 	File            io.Reader
@@ -49,7 +40,7 @@ func (c *AudioConfig) validateValues() error {
 func (c *AudioConfig) isFileExtensionSupported() bool {
 	ext := strings.ToLower(filepath.Ext(c.FileName))
 	for _, format := range supportedFormatsAudio {
-		if strings.Contains(ext, format) {
+		if strings.Contains(ext, format) || format == MP4 {
 			if format == MP4 {
 				c.FormatToConvert = MP3
 			}

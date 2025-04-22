@@ -10,13 +10,6 @@ import (
 	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
 
-const (
-	MP4  = "mp4"
-	WEBM = "webm"
-)
-
-var supportedFormatsVideo = []string{MP4, WEBM}
-
 type VideoConfig struct {
 	FileName              string
 	File                  io.Reader
