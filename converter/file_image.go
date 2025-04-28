@@ -238,16 +238,17 @@ func (c *ImageConfig) deleteImage(reqFilePath ...string) error {
 
 // LogoConfig holds configuration for logo processing
 type LogoConfig struct {
-	FileName     string    // Name of the logo file
-	File         io.Reader // File reader for the logo
-	DirToStorage string    // Directory to store the processed logo
-	MaxWidth     int       // Maximum width for the logo
-	MaxHeight    int       // Maximum height for the logo
-	MinWidth     int       // Minimum width for the logo
-	MinHeight    int       // Minimum height for the logo
+	FileName        string    // Name of the logo file
+	File            io.Reader // File reader for the logo
+	FormatToConvert string    // Format to convert the logo to
+	DirToStorage    string    // Directory to store the processed logo
+	MaxWidth        int       // Maximum width for the logo
+	MaxHeight       int       // Maximum height for the logo
+	MinWidth        int       // Minimum width for the logo
+	MinHeight       int       // Minimum height for the logo
 }
 
-// ProcessLogo handles logo upload, resizing with quality strategies, and saves it in WebP format.
+// ProcessLogo handles logo upload, resizing with quality strategies, and saves it in the specified format.
 func (cfg *LogoConfig) processLogo() (string, error) {
 	if cfg.File == nil {
 		return "", fmt.Errorf("logo file is required")
@@ -255,6 +256,25 @@ func (cfg *LogoConfig) processLogo() (string, error) {
 	if cfg.DirToStorage == "" {
 		return "", fmt.Errorf("DirToStorage is required")
 	}
+
+	// Set default format to webp if not specified
+	if cfg.FormatToConvert == "" {
+		cfg.FormatToConvert = "webp"
+	}
+
+	// Check if the format is supported
+	supportedFormats := []string{"png", "webp", "jpg"}
+	isSupported := false
+	for _, format := range supportedFormats {
+		if cfg.FormatToConvert == format {
+			isSupported = true
+			break
+		}
+	}
+	if !isSupported {
+		return "", fmt.Errorf("unsupported format: %s", cfg.FormatToConvert)
+	}
+
 	if err := os.MkdirAll(cfg.DirToStorage, 0755); err != nil {
 		return "", err
 	}
@@ -298,18 +318,31 @@ func (cfg *LogoConfig) processLogo() (string, error) {
 	resized = imaging.AdjustContrast(resized, 2)
 	resized = imaging.AdjustBrightness(resized, 2)
 
-	outputName := strings.TrimSuffix(cfg.FileName, filepath.Ext(cfg.FileName)) + ".webp"
+	outputName := strings.TrimSuffix(cfg.FileName, filepath.Ext(cfg.FileName)) + "." + cfg.FormatToConvert
 	outputPath := filepath.Join(cfg.DirToStorage, outputName)
 
-	// Convert and save the logo in WebP format
-	webpData, err := convertToWebp(resized, 95)
+	// Convert and save the logo in the specified format
+	switch cfg.FormatToConvert {
+	case "png":
+		err = imaging.Save(resized, outputPath, imaging.PNGCompressionLevel(png.BestCompression))
+	case "jpg":
+		err = imaging.Save(resized, outputPath, imaging.JPEGQuality(95))
+	case "webp":
+		webpData, err := convertToWebp(resized, 95)
+		if err != nil {
+			os.Remove(tempPath)
+			return "", err
+		}
+		err = os.WriteFile(outputPath, webpData, 0644)
+		if err != nil {
+			return "", fmt.Errorf("error saving webp file: %w", err)
+		}
+	default:
+		return "", fmt.Errorf("unsupported format: %s", cfg.FormatToConvert)
+	}
 	if err != nil {
 		os.Remove(tempPath)
-		return "", err
-	}
-	if err := os.WriteFile(outputPath, webpData, 0644); err != nil {
-		os.Remove(tempPath)
-		return "", err
+		return "", fmt.Errorf("error saving processed file: %w", err)
 	}
 
 	os.Remove(tempPath)
