@@ -6,6 +6,8 @@ import (
 	"image"
 	"image/png"
 	"os/exec"
+
+	_ "golang.org/x/image/webp"
 )
 
 // convertToWebp converts an image to WebP format

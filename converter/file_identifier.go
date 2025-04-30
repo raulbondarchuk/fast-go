@@ -3,13 +3,15 @@ package converter
 import (
 	"path/filepath"
 	"strings"
+
+	_ "golang.org/x/image/webp"
 )
 
 const (
 	// List of supported image formats
 	PNG  = "png"
-	JPEG = "jpg"
-	JPG  = "jpeg"
+	JPEG = "jpeg"
+	JPG  = "jpg"
 	WEBP = "webp"
 	JFIF = "jfif"
 	// AVIF = "avif"

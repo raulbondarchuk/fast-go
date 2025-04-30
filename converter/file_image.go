@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/disintegration/imaging"
+	_ "golang.org/x/image/webp"
 )
 
 // ImageConfig holds configuration for image processing
