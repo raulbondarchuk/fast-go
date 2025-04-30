@@ -12,7 +12,7 @@ const (
 	PNG  = "png"
 	JPEG = "jpeg"
 	JPG  = "jpg"
-	WEBP = "webp"
+	WEBP = "webp" // VP8X is not supported, only VP8 and VP8L are allowed
 	JFIF = "jfif"
 	// AVIF = "avif"
 	// HEIC = "heic"
